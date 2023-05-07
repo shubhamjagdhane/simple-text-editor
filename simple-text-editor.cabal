@@ -35,6 +35,10 @@ library
   build-depends:
       base >=4.7 && <5
     , brick
+    , microlens
+    , microlens-mtl
+    , microlens-th
+    , vty
   default-language: Haskell2010
 
 executable simple-text-editor-exe
@@ -47,7 +51,11 @@ executable simple-text-editor-exe
   build-depends:
       base >=4.7 && <5
     , brick
+    , microlens
+    , microlens-mtl
+    , microlens-th
     , simple-text-editor
+    , vty
   default-language: Haskell2010
 
 test-suite simple-text-editor-test
@@ -61,5 +69,9 @@ test-suite simple-text-editor-test
   build-depends:
       base >=4.7 && <5
     , brick
+    , microlens
+    , microlens-mtl
+    , microlens-th
     , simple-text-editor
+    , vty
   default-language: Haskell2010
