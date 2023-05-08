@@ -11,6 +11,7 @@ import Brick.AttrMap
 import Brick.Main
 import Brick.Types
 import Brick.Widgets.Core
+import Brick.Widgets.Border
 import qualified Graphics.Vty as V
 
 data CustomEvent = Counter deriving Show
@@ -37,7 +38,7 @@ theApp =
 drawUI :: St -> [Widget ()]
 drawUI st = [a]
     where
-        a = (str $ "Last Event: " <> (show $ st ^. stLastBrickEvent))
+        a = border $ (str $ "Last Event: " <> (show $ st ^. stLastBrickEvent))
             <=>
             (str $ "Counter value is:" <> (show $ st ^. stCounter))
 
