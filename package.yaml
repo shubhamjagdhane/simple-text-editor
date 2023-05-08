@@ -26,6 +26,7 @@ dependencies:
 - microlens
 - microlens-th
 - microlens-mtl
+- directory
 
 
 ghc-options:
