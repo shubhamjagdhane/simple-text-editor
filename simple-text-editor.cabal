@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      Editor
       Lib
       Tui
   other-modules:
@@ -35,6 +36,7 @@ library
   build-depends:
       base >=4.7 && <5
     , brick
+    , directory
     , microlens
     , microlens-mtl
     , microlens-th
@@ -51,6 +53,7 @@ executable simple-text-editor-exe
   build-depends:
       base >=4.7 && <5
     , brick
+    , directory
     , microlens
     , microlens-mtl
     , microlens-th
@@ -69,6 +72,7 @@ test-suite simple-text-editor-test
   build-depends:
       base >=4.7 && <5
     , brick
+    , directory
     , microlens
     , microlens-mtl
     , microlens-th

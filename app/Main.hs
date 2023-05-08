@@ -1,6 +1,6 @@
 module Main (main) where
 
-import Tui
+import Editor
 
 main :: IO ()
 main = tui
