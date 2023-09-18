@@ -6,12 +6,12 @@ cabal-version: 1.12
 
 name:           tui-text-editor
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/githubuser/tui-text-editor#readme>
-homepage:       https://github.com/githubuser/tui-text-editor#readme
-bug-reports:    https://github.com/githubuser/tui-text-editor/issues
-author:         Author name here
-maintainer:     example@example.com
-copyright:      2023 Author name here
+description:    Please see the README on GitHub at <https://github.com/shubhamjagdhane/tui-text-editor#readme>
+homepage:       https://github.com/github.com/shubhamjagdhane#readme
+bug-reports:    https://github.com/github.com/shubhamjagdhane/issues
+author:         Shubham Jagdhane
+maintainer:     shubhamjagdhane1010@gmail.com
+copyright:      2023 Shubham Jagdhane
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
@@ -21,7 +21,8 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/tui-text-editor
+  location: https://github.com/github.com/shubhamjagdhane
+  subdir: tui-text-editor
 
 library
   exposed-modules:
