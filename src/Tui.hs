@@ -3,6 +3,7 @@
 module Tui(tui) where
 
 import System.Directory
+import Control.Monad.IO.Class
 import System.Exit
 import qualified Brick as B
 import Brick.Main
@@ -78,14 +79,39 @@ handleTuiEvent :: BrickEvent ResourceName e -> EventM ResourceName TuiState ()
 handleTuiEvent (VtyEvent (V.EvKey (V.KChar 'q') _)) = halt
 handleTuiEvent (VtyEvent (V.EvKey KDown [])) = do
     st <- get
-    let nec = tuiStatePaths st
-    case nonEmptyCursorSelectNext nec of 
-        Nothing -> continueWithoutRedraw 
-        Just nec' -> put $ TuiState { tuiStatePaths = nec' }
+    maybe continueWithoutRedraw put (toNewTuiState .  nonEmptyCursorSelectNext $ tuiStatePaths st)
 handleTuiEvent (VtyEvent (V.EvKey KUp [])) = do
+    st <- get 
+    maybe continueWithoutRedraw put (toNewTuiState .  nonEmptyCursorSelectPrev $ tuiStatePaths st)
+handleTuiEvent (VtyEvent (V.EvKey KEnter [])) = do
     st <- get
-    let nec = tuiStatePaths st
-    case nonEmptyCursorSelectPrev nec of 
-        Nothing -> continueWithoutRedraw 
-        Just nec' -> put $ TuiState { tuiStatePaths = nec' }
-handleTuiEvent _= halt
+    let fp = nonEmptyCursorCurrent $ tuiStatePaths st
+    isDirectory <- liftIO $ doesDirectoryExist fp
+    if isDirectory
+       then do
+            liftIO $ setCurrentDirectory $ nonEmptyCursorCurrent $ tuiStatePaths st
+            st' <- liftIO buildInitialState
+            put st'
+        else
+            continueWithoutRedraw
+handleTuiEvent _ = halt
+
+
+toNewTuiState :: Maybe (NonEmptyCursor FilePath)  -> Maybe TuiState
+toNewTuiState Nothing =  Nothing
+toNewTuiState (Just x) =  Just $ TuiState {tuiStatePaths = x}
+
+{--
+
+    st <- get 
+    maybe continueWithoutRedraw put (toNewTuiState .  nonEmptyCursorSelectPrev $ tuiStatePaths st)
+
+
+   get :: MonadState s m -> m s
+   put :: MonadState s m => s -> m ()
+   nomEmptyCursorSelectPrev :: Maybe (NonEmptyCursor FilePath)
+   toNewState :: Maybe (NonEmptyCursor FilePath)  -> Maybe TuiState
+
+--}
+
+
