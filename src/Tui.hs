@@ -64,11 +64,15 @@ drawTui ts =
         ]
 
 drawPath :: Bool -> FilePath -> Widget n
-drawPath b = 
-    (if b 
-        then B.withAttr (B.attrName "selected")
-        else id) . 
-    str
+drawPath False = str 
+drawPath True = B.withAttr (B.attrName "selected") . str
+{--
+    drawPath b = 
+        (if b 
+            then B.withAttr (B.attrName "selected")
+            else id) . 
+        str
+--}
 
 handleTuiEvent :: BrickEvent ResourceName e -> EventM ResourceName TuiState ()
 handleTuiEvent (VtyEvent (V.EvKey (V.KChar 'q') _)) = halt
